@@ -1,3 +1,8 @@
+# Chris Cook
+# 4553 Spatial Data Structures
+# Program 2 Part 1
+# Due: June 20, 2017
+
 import pprint as pp
 import os,sys
 
