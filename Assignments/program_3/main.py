@@ -5,6 +5,7 @@ import glob
 import math
 import os
 import pygame
+import time
 
 DIRPATH = os.path.dirname(os.path.realpath(__file__))
 
@@ -104,7 +105,7 @@ def adjust_location_coords(extremes,points,width,height):
         x = float(x)
         y = float(y)
         xprime = (x - minx) / deltax         # val (0,1)
-        yprime = 1.0 - ((y - miny) / deltay) # val (0,1)
+        yprime = ((y - miny) / deltay) # val (0,1)
         adjx = int(xprime*width)
         adjy = int(yprime*height)
         adjusted.append((adjx,adjy))
@@ -194,13 +195,13 @@ while running:
 
     for p in points:
         pygame.draw.circle(screen, (70,173,212), p, 2,1)
-
+        pygame.display.flip()
+        time.sleep(0.01)
+    
+    pygame.image.save(screen, DIRPATH+'/7.0_quakes_1960-2016.png')
+    input()
 
     #pygame.image.save(screen , DIRPATH+'/7.0_quakes_1960-2016.png')
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            clean_area(screen,(0,0),width,height,(255,255,255))
-    
-    pygame.display.flip()
