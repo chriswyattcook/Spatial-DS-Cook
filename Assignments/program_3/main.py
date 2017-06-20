@@ -1,3 +1,17 @@
+"""
+Program:
+--------
+    Program 3 - Earthquake Data
+
+Description:
+------------
+    This program downloads earthquake data.  It then processes the coordinates
+    and draws them on a pygame window with a world map
+    
+Name: Chris Cook    
+Date: 20 Jun 2017
+"""
+
 import requests
 import json
 import sys
