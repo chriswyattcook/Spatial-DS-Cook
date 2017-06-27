@@ -525,5 +525,3 @@ if __name__ == '__main__':
 
                             # draws the bounding box around the chosen country/state
                             pygame.draw.rect(gd.screen, (128,0,0), (min(all_x), max(all_y),max(all_x)-min(all_x), min(all_y)-max(all_y)), 3)
-
-
