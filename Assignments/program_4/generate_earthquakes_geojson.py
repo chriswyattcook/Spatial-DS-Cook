@@ -1,3 +1,15 @@
+"""
+Program:
+--------
+    Program 4 - Generating geo json from json files
+
+Description:
+------------
+    This program reads in a particular json file and converts it to a geo json format.
+    
+Name: Chris W Cook
+Date: 28 June 2017
+"""
 import pprint as pp
 import os,sys
 import json
