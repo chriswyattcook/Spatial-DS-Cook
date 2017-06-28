@@ -40,8 +40,6 @@ for k,v in data.items():
         gj['geometry']['coordinates'] = [float(lon),float(lat)]
         all_cities.append(gj)
 
-# pp.pprint(all_airports[0])
-
 out = open(dir_path+"\\geo_json\\world_cities_gj.geojson","w")
 
 out.write(json.dumps(all_cities, sort_keys=False,indent = 4, separators = (',',':')))

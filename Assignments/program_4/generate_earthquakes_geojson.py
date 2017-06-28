@@ -26,20 +26,20 @@ data = json.loads(data)
 all_earthquakes = []
 
 for key,value in data.items():
-    for c in value:
-        gj = collections.OrderedDict()
+        for c in value:
+            gj = collections.OrderedDict()
 
-        gj['type'] = 'Feature'
-        gj['properties'] = c
-        lat = c['geometry']['coordinates'][1]
-        lon = c['geometry']['coordinates'][0]
-        del gj['properties']['geometry']
-        gj['geometry'] = {}
-        gj['geometry']['type'] = 'Point'
-        gj['geometry']['coordinates'] = [lon,lat]
-        all_earthquakes.append(gj)
+            gj['type'] = 'Feature'
+            gj['properties'] = c
+            lat = c['geometry']['coordinates'][1]
+            lon = c['geometry']['coordinates'][0]
+            del gj['properties']['geometry']
+            gj['geometry'] = {}
+            gj['geometry']['type'] = 'Point'
+            gj['geometry']['coordinates'] = [lon,lat]
+            all_earthquakes.append(gj)
+            
 
-# pp.pprint(all_airports[0])
 
 out = open(dir_path+"\\geo_json\\earthquakes_gj.geojson","w")
 
