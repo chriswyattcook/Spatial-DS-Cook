@@ -8,26 +8,12 @@ import pygame
 DIRPATH = os.path.dirname(os.path.realpath(__file__))
 
 #checks if argv will be used. Otherwise, defaults to DFW MNL 500
-try:    
+if(len(sys.argv) > 1):    
     start_pt = sys.argv[1]
     end_pt = sys.argv[2]
     r = float(sys.argv[3])
-except:
-    start_pt = 'DFW'
-    end_pt = "MNL"
-    r = 500
 
-#run db query for next airport within the r
-#find all vol as red, eq as blue, meteor as green
-#repeat steps until at end_pt
-mh = mongoHelper()
-
-#get coords of start,end
-start =  mh.get_doc_by_keyword('airports','ap_iata',start_pt)
-start_coords = mh.get_coordinates(start[0])
-
-end =  mh.get_doc_by_keyword('airports','ap_iata',end_pt)
-end_coords = mh.get_coordinates(end[1])      
+   
     
 
 #display
@@ -51,4 +37,19 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        
+
+        if event.type == pygame.MOUSEBUTTONDOWN and len(sys.argv) < 2:
+            start_pt = (event.pos[0],event.pos[1])
+            end_pt = (event.pos[0],event.pos[1])
+            r = 500
+    #run db query for next airport within the r
+    #find all vol as red, eq as blue, meteor as green
+    #repeat steps until at end_pt
+    mh = mongoHelper()
+
+    #get coords of start,end
+    start =  mh.get_doc_by_keyword('airports','ap_iata',start_pt)
+    start_coords = mh.get_coordinates(start[0])
+
+    end =  mh.get_doc_by_keyword('airports','ap_iata',end_pt)
+    end_coords = mh.get_coordinates(end[1])   
