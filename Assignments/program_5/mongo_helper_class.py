@@ -6,8 +6,13 @@ class mongoHelper(object):
     def __init__(self):
         self.client = MongoClient()
 
-        self.db_airports = self.client.geo.airports
-        self.db_states = self.client.geo.states
+        self.db_airports = self.client.world_data.airports
+        self.db_cities = self.client.world_data.cities
+        self.db_countries = self.client.world_data.countries
+        self.db_earthquakes = self.client.world_data.earthquakes
+        self.db_meteorites = self.client.world_data.meteorites
+        self.db_states = self.client.world_data.states
+        self.db_volcanos = self.client.world_data.volcanos
 
 
     def get_airports_in_poly(self,poly):
@@ -16,7 +21,7 @@ class mongoHelper(object):
         Params:
             poly (object): geojson poly
         """
-        state_airports = self.db_airports.find( { 'loc' : { '$geoWithin' : { '$geometry' : poly } } })
+        state_airports = self.db_airports.find( { 'geometry.coordinates' : { '$geoWithin' : { '$geometry' : poly } } })
 
         ap_list = []
         for ap in state_airports:
@@ -25,23 +30,13 @@ class mongoHelper(object):
         return ap_list
 
     def get_state_poly(self,state):
-        state_poly = self.db_states.find_one({'code' : state})
-        return(state_poly['loc'])
-
-    def get_afb_airports(self):
-
-        
-        res = self.db_airports.find({"type" : "Military"})
-
-        res_list = []
-        for r in res:
-            res_list.append(r)
-
-        return res_list
+        state_poly = self.db_states.find_one({'properties.code' : state})
+        return(state_poly['geometry']['coordinates'])
 
     def get_doc_by_keyword(self,db_name,field,key):
+
         if db_name == 'airports':
-            res = self.db_airports.find({field : {'$regex' : ".*"+key+".*"}})
+            res = self.db_airports.find({'properties.'+field : {'$regex' : ".*"+key+".*"}})
         else:
             res = self.states.find({field : {'$regex' : ".*"+key+".*"}})
         
@@ -51,6 +46,9 @@ class mongoHelper(object):
 
         return res_list
 
+    def get_coordinates(self, thingy):
+
+        return(thingy['geometry']['coordinates'])
 
     def get_state_by_point(self,point):
         return self.db_states.find_one({'loc':{'$geoIntersects':{'$geometry':{ "type" : "Point","coordinates" : point }}}})
@@ -61,12 +59,9 @@ class mongoHelper(object):
 
 def main():
     mh = mongoHelper()
-    poly = mh.get_state_poly("CA")
-    ap = mh.get_airports_in_poly(poly)
-    afb = mh.get_afb_airports()
-    print(len(afb))
-    bykey = mh.get_doc_by_keyword('airports','name','County')
-
+    poly = mh.get_state_poly("la")
+    #ap = mh.get_airports_in_poly(poly)
+    bykey = mh.get_doc_by_keyword('airports','ap_iata','DFW')
     pp.pprint(bykey)
 
 
