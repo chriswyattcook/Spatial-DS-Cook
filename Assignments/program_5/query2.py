@@ -1,4 +1,5 @@
 from mongo_features_helper import *
+from mapping_helper import *
 import pprint as pp
 import sys
 import pygame
@@ -10,6 +11,7 @@ DIRPATH = os.path.dirname(os.path.realpath(__file__))
 background_colour = (255,255,255)
 black = (0,0,0)
 (width, height) = (1024, 512)
+color_list = {'volcanos':(255,0,0),'earthquakes':(70,173,212),'meteorites':(76,187,23)}
 
 #run db query for next airport within the r
 #find all vol as red, eq as blue, meteor as green
@@ -35,9 +37,11 @@ lat,lon = (None,None)
 #defaults if nothing is after query2.py
 if(len(sys.argv)==1):
     radius = 200
+    max_results = 100
 #if only a radius is passed in (will use mouse input)
 elif(len(sys.argv)>1 and (len(sys.argv))<3):
     radius = float(sys.argv[1])
+    max_results = 100
 #if everything is passed in except a lat,lon (will use mouse input)
 elif(len(sys.argv)>3):
     #separates argv
@@ -59,12 +63,20 @@ result_list = []
 res = []
 feature_list = ['volcanos','earthquakes','meteorites']
 
+#these are used to convert lon,lat to x,y
+allx = []
+ally = []
+points = []
+extremes = {}
+adj = {}
+
 #flags to trigger certain parts of the code
 picked_pt = False
 if(len(sys.argv))>7:
     picked_pt = True
 converted_to_lat_lon = False
 find_feature = True
+drawn = False
 
 running = True
 while running:
@@ -90,14 +102,18 @@ while running:
 
     if picked_pt == True and find_feature == True:
         if feature == None:
+            adj = {'volcanos':None,'earthquakes':None,'meteorites':None}
             for f in feature_list:
                 result_list = mh.get_features_near_me(f,(lon,lat),radius)
-                #convert to x_y
-                #plot with a colored dot
-                pp.pprint(result_list)
+                
+                extremes,points = find_extremes(result_list)
+
+                adj[f] = (adjust_location_coords(extremes,points,width,height))
+                
+                
         else:
             result_list = mh.get_features_near_me(feature,(lon,lat),radius)
-            
+            adj = {feature: None}
             for r in result_list:
                 if min_max == 'min':
                     if float(r['properties'][field]) > field_value:
@@ -109,7 +125,22 @@ while running:
             for f in range(max_results):
                 result_list.append(res[f])
 
-                #convert to x_y
-                #plot with a particular color
-        pp.pprint(result_list)
+            extremes,points = find_extremes(result_list)
+
+            adj[feature] = (adjust_location_coords(extremes,points,width,height))
+
+        #pp.pprint(result_list)
         find_feature = False
+        #pp.pprint(adj)
+
+    if picked_pt == True and drawn == False:
+        for f in adj.keys():
+            for pt in adj[f]:
+                print(color_list[f],pt)
+                pygame.draw.circle(screen, color_list[f], pt, 2,1)
+                pygame.display.flip()
+        pygame.image.save(screen, DIRPATH+'/query2.png')
+        drawn = True 
+        
+    
+        
