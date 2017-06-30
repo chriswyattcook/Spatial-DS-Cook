@@ -52,7 +52,7 @@ def adjust_location_coords(extremes,points,width,height):
         adjusted.append((adjx,adjy))
     return adjusted
 
-def find_extremes(result_list):
+def find_extremes(result_list,width,height):
     '''
     find the extremes in a set of points.
     input:
@@ -75,9 +75,9 @@ def find_extremes(result_list):
     extremes['max_y'] = max(ally)
     extremes['min_y'] = min(ally)'''
 
-    extremes['max_x'] = 1024
+    extremes['max_x'] = width
     extremes['min_x'] = 0
-    extremes['max_y'] = 512
+    extremes['max_y'] = height
     extremes['min_y'] = 0
 
     return extremes,points

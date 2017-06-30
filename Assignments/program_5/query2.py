@@ -93,7 +93,7 @@ while running:
     
     #convert x_y_coords to lat,lon for mongodb
     if x_y_coords != None and converted_to_lat_lon == False:
-        #Dont have a way to conert this yet
+        #Dont have a way to convert this yet
         #lat,lon = print("gon' convert this bitch", x_y_coords)
         lat, lon = (event.pos[0],event.pos[1])
         converted_to_lat_lon = True
@@ -106,7 +106,7 @@ while running:
             for f in feature_list:
                 result_list = mh.get_features_near_me(f,(lon,lat),radius)
                 
-                extremes,points = find_extremes(result_list)
+                extremes,points = find_extremes(result_list, width, height)
 
                 adj[f] = (adjust_location_coords(extremes,points,width,height))
                 
@@ -126,7 +126,7 @@ while running:
             for f in range(max_results):
                 result_list.append(res[f])
 
-            extremes,points = find_extremes(result_list)
+            extremes,points = find_extremes(result_list, width, height)
 
             adj[feature] = (adjust_location_coords(extremes,points,width,height))
 
