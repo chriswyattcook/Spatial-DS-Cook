@@ -112,6 +112,7 @@ while running:
                 
                 
         else:
+            print(lon,lat)
             result_list = mh.get_features_near_me(feature,(lon,lat),radius)
             adj = {feature: None}
             for r in result_list:
@@ -129,9 +130,9 @@ while running:
 
             adj[feature] = (adjust_location_coords(extremes,points,width,height))
 
-        #pp.pprint(result_list)
+        pp.pprint(result_list)
         find_feature = False
-        #pp.pprint(adj)
+        pp.pprint(adj)
 
     if picked_pt == True and drawn == False:
         for f in adj.keys():

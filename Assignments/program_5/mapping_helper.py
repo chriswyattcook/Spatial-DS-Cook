@@ -46,13 +46,18 @@ def adjust_location_coords(extremes,points,width,height):
         x = float(x)
         y = float(y)
         xprime = (x - minx) / deltax         # val (0,1)
-        yprime = ((y - miny) / deltay) # val (0,1)
+        yprime = (1.0-(y - miny) / deltay) # val (0,1)
         adjx = int(xprime*width)
         adjy = int(yprime*height)
         adjusted.append((adjx,adjy))
     return adjusted
 
 def find_extremes(result_list):
+    '''
+    find the extremes in a set of points.
+    input:
+        result_list: a list geojson entries
+    '''
     extremes={}
     allx = []
     ally = []
@@ -65,9 +70,14 @@ def find_extremes(result_list):
         ally.append(y)
         points.append((x,y))
         
-    extremes['max_x'] = max(allx)
+    '''extremes['max_x'] = max(allx)
     extremes['min_x'] = min(allx)
     extremes['max_y'] = max(ally)
-    extremes['min_y'] = min(ally)
+    extremes['min_y'] = min(ally)'''
+
+    extremes['max_x'] = 1024
+    extremes['min_x'] = 0
+    extremes['max_y'] = 512
+    extremes['min_y'] = 0
 
     return extremes,points

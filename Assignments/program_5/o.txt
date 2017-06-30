@@ -1,6 +1,55 @@
-((255, 0, 0), (512, 170))
-((255, 0, 0), (0, 0))
-((255, 0, 0), (1024, 46))
-((255, 0, 0), (0, 217))
-((255, 0, 0), (0, 263))
-((255, 0, 0), (512, 512))
+(-121.937, 46.2)
+[{u'_id': ObjectId('5955be8b46ef51d37a425a82'),
+  u'geometry': {u'coordinates': [-121.49, 46.21], u'type': u'Point'},
+  u'properties': {u'Altitude': u'3742',
+                  u'Country': u'US-Washington',
+                  u'Name': u'Adams',
+                  u'Type': u'Stratovolcano'},
+  u'type': u'Feature'},
+ {u'_id': ObjectId('5955be8b46ef51d37a425aec'),
+  u'geometry': {u'coordinates': [-121.81, 48.78], u'type': u'Point'},
+  u'properties': {u'Altitude': u'3285',
+                  u'Country': u'US-Washington',
+                  u'Name': u'Baker',
+                  u'Type': u'Stratovolcanoes'},
+  u'type': u'Feature'},
+ {u'_id': ObjectId('5955be8b46ef51d37a425c33'),
+  u'geometry': {u'coordinates': [-121.11, 48.11], u'type': u'Point'},
+  u'properties': {u'Altitude': u'3213',
+                  u'Country': u'US-Washington',
+                  u'Name': u'Glacier Peak',
+                  u'Type': u'Stratovolcano'},
+  u'type': u'Feature'},
+ {u'_id': ObjectId('5955be8b46ef51d37a425c77'),
+  u'geometry': {u'coordinates': [-121.7, 45.37], u'type': u'Point'},
+  u'properties': {u'Altitude': u'3426',
+                  u'Country': u'US-Oregon',
+                  u'Name': u'Hood',
+                  u'Type': u'Stratovolcano'},
+  u'type': u'Feature'},
+ {u'_id': ObjectId('5955be8b46ef51d37a425cc0'),
+  u'geometry': {u'coordinates': [-121.8, 44.67], u'type': u'Point'},
+  u'properties': {u'Altitude': u'3199',
+                  u'Country': u'US-Oregon',
+                  u'Name': u'Jefferson',
+                  u'Type': u'Stratovolcano'},
+  u'type': u'Feature'},
+ {u'_id': ObjectId('5955be8b46ef51d37a425d46'),
+  u'geometry': {u'coordinates': [-121.51, 40.49], u'type': u'Point'},
+  u'properties': {u'Altitude': u'3187',
+                  u'Country': u'US-California',
+                  u'Name': u'Lassen Volc Center',
+                  u'Type': u'Stratovolcano'},
+  u'type': u'Feature'}]
+{'volcanos': [(166, 149),
+              (165, 160),
+              (167, 157),
+              (165, 146),
+              (165, 143),
+              (166, 127)]}
+((255, 0, 0), (166, 149))
+((255, 0, 0), (165, 160))
+((255, 0, 0), (167, 157))
+((255, 0, 0), (165, 146))
+((255, 0, 0), (165, 143))
+((255, 0, 0), (166, 127))
