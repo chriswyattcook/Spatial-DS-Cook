@@ -37,7 +37,7 @@ if(len(sys.argv)==1):
     radius = 200
 #if only a radius is passed in (will use mouse input)
 elif(len(sys.argv)>1 and (len(sys.argv))<3):
-    radius = sys.argv[1]
+    radius = float(sys.argv[1])
 #if everything is passed in except a lat,lon (will use mouse input)
 elif(len(sys.argv)>3):
     #separates argv
@@ -61,6 +61,8 @@ feature_list = ['volcanos','earthquakes','meteorites']
 
 #flags to trigger certain parts of the code
 picked_pt = False
+if(len(sys.argv))>7:
+    picked_pt = True
 converted_to_lat_lon = False
 find_feature = True
 
@@ -74,22 +76,25 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN and (len(sys.argv) < 3) and picked_pt == False:
-            x_y_coords = ((event.pos[0],event.pos[1]))
+            x_y_coords = (event.pos[0],event.pos[1])
             picked_pt = True
     
     #convert x_y_coords to lat,lon for mongodb
     if x_y_coords != None and converted_to_lat_lon == False:
         #Dont have a way to conert this yet
         #lat,lon = print("gon' convert this bitch", x_y_coords)
+        lat, lon = (event.pos[0],event.pos[1])
         converted_to_lat_lon = True
 
 
-    if find_feature == True:
+
+    if picked_pt == True and find_feature == True:
         if feature == None:
             for f in feature_list:
                 result_list = mh.get_features_near_me(f,(lon,lat),radius)
                 #convert to x_y
                 #plot with a colored dot
+                pp.pprint(result_list)
         else:
             result_list = mh.get_features_near_me(feature,(lon,lat),radius)
             
@@ -106,5 +111,5 @@ while running:
 
                 #convert to x_y
                 #plot with a particular color
-
+        pp.pprint(result_list)
         find_feature = False
