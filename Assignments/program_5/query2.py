@@ -78,10 +78,12 @@ converted_to_lat_lon = False
 find_feature = True
 drawn = False
 
+screen.blit(bg, (0, 0))
+pygame.display.flip()
+
 running = True
 while running:
-    screen.blit(bg, (0, 0))
-    pygame.display.flip()
+    
     #pygame.image.save(screen, DIRPATH+'/query1.png')
 
     for event in pygame.event.get():

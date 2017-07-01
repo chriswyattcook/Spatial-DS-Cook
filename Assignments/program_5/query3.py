@@ -43,10 +43,12 @@ points = adjust_location_coords(extremes,points,width,height)
 
 mbrs = calculate_mbrs(points, eps, min_pts)
 
+screen.blit(bg, (0, 0))
+pygame.display.flip()
+
 running = True
 while running:
-    screen.blit(bg, (0, 0))
-    pygame.display.flip()
+    
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
