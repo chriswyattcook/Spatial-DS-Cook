@@ -20,3 +20,15 @@
   - `python query2.py`
 ##### Other:
 - query2.png is a picture of the map after all points have been plotted. It is overwritten each time any of these are run. 
+
+# query3 : Clustering - Examples/Usage
+###### `python query3.py [feature] [min_pts] [eps]`
+  - `[feature]` must be: 'earthquakes', 'meteorites' or 'volcanos'. Anything else will not work.
+  - `[min_pts]` minimum number of points to make a cluster
+  - `[eps]` distance for dbscan
+  - `python query3.py earthquakes 3 5`
+  - `python query3.py volcanos 3 5`
+  - `python query3.py meteorites 3 5`
+##### Other:
+- query3.png is a picture of the map after all points have been plotted. It is overwritten each time this is run. 
+- May produce more than 5 clusters.

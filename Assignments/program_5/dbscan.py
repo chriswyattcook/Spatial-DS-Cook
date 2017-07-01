@@ -225,6 +225,7 @@ def calculate_mbrs(points, epsilon, min_pts):
     """
     mbrs = []
     clusters =  dbscan(points, epsilon, min_pts)
+    
 
     """
     Traditional dictionary iteration to populate mbr list
