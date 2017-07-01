@@ -21,7 +21,7 @@ box_color = (255,255,0)
 pygame.init()
 bg = pygame.image.load(DIRPATH+'/world_map.png')
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('query3')
+pygame.display.set_caption('query3: Clustering')
 screen.fill(background_colour)
 pygame.display.flip()
 

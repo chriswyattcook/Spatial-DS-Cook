@@ -20,7 +20,7 @@ color_list = {'volcanos':(255,0,0),'earthquakes':(70,173,212),'meteorites':(76,1
 pygame.init()
 bg = pygame.image.load(DIRPATH+'/world_map.png')
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('query2')
+pygame.display.set_caption('query2: Nearest Neighbor')
 screen.fill(background_colour)
 pygame.display.flip()
 
@@ -98,6 +98,7 @@ while running:
         #Dont have a way to convert this yet
         #lat,lon = print("gon' convert this bitch", x_y_coords)
         lat, lon = (event.pos[0],event.pos[1])
+        print(x_to_lon(lon,width))
         converted_to_lat_lon = True
 
 

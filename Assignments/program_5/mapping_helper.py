@@ -23,6 +23,21 @@ def mercY(lat):
     c = math.pi - math.log(b)
     return int(a * c)
 
+def x_to_lon(x,width):
+    #x = (longitude+180)*(mapWidth/360)
+    pass
+    #return ()
+
+def y_to_lat(y,heigth):
+    '''    // convert from degrees to radians
+    latRad = latitude*PI/180;
+
+    // get y value
+    mercN = log(tan((PI/4)+(latRad/2)));
+    y     = (mapHeight/2)-(mapWidth*mercN/(2*PI))'''
+    pass
+    #return ()
+
 def adjust_location_coords(extremes,points,width,height):
     """
     Adjust your point data to fit in the screen. 
