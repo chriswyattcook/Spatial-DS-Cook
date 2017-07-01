@@ -46,9 +46,9 @@ def adjust_location_coords(extremes,points,width,height):
         x = float(x)
         y = float(y)
         xprime = (x - minx) / deltax         # val (0,1)
-        yprime = (1.0-(y - miny) / deltay) # val (0,1)
+        yprime = ((y - miny) / deltay) # val (0,1)
         adjx = int(xprime*width)
-        adjy = int(yprime*height)
+        adjy = int(yprime*height)-256
         adjusted.append((adjx,adjy))
     return adjusted
 
@@ -70,14 +70,25 @@ def find_extremes(result_list,width,height):
         ally.append(y)
         points.append((x,y))
         
-    '''extremes['max_x'] = max(allx)
+    '''
+    extremes['max_x'] = max(allx)
     extremes['min_x'] = min(allx)
     extremes['max_y'] = max(ally)
-    extremes['min_y'] = min(ally)'''
+    extremes['min_y'] = min(ally)
 
+    '''
     extremes['max_x'] = width
     extremes['min_x'] = 0
     extremes['max_y'] = height
     extremes['min_y'] = 0
-
+    
     return extremes,points
+
+def clean_area(screen,origin,width,height,color):
+    """
+    Prints a color rectangle (typically white) to "erase" an area on the screen.
+    Could be used to erase a small area, or the entire screen.
+    """
+    ox,oy = origin
+    points = [(ox,oy),(ox+width,oy),(ox+width,oy+height),(ox,oy+height),(ox,oy)]
+    pygame.draw.polygon(screen, color, points, 0)

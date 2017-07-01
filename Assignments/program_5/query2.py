@@ -20,7 +20,7 @@ color_list = {'volcanos':(255,0,0),'earthquakes':(70,173,212),'meteorites':(76,1
 pygame.init()
 bg = pygame.image.load(DIRPATH+'/world_map.png')
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('query1')
+pygame.display.set_caption('query2')
 screen.fill(background_colour)
 pygame.display.flip()
 
@@ -112,7 +112,7 @@ while running:
                 
                 
         else:
-            print(lon,lat)
+            #print(lon,lat)
             result_list = mh.get_features_near_me(feature,(lon,lat),radius)
             adj = {feature: None}
             for r in result_list:
@@ -123,25 +123,28 @@ while running:
                     if r['properties.'+field] < field_value:
                         res.append(r)
             result_list = []
+            #print("res")
+            
             for f in range(max_results):
                 result_list.append(res[f])
+                #print(res[f])
 
             extremes,points = find_extremes(result_list, width, height)
 
             adj[feature] = (adjust_location_coords(extremes,points,width,height))
 
-        pp.pprint(result_list)
+        #pp.pprint(result_list)
         find_feature = False
-        pp.pprint(adj)
+        #pp.pprint(adj)
 
     if picked_pt == True and drawn == False:
         for f in adj.keys():
             for pt in adj[f]:
-                print(color_list[f],pt)
+                #print(color_list[f],pt)
                 pygame.draw.circle(screen, color_list[f], pt, 2,1)
                 pygame.display.flip()
         pygame.image.save(screen, DIRPATH+'/query2.png')
-        drawn = True 
+         
         
     
         
