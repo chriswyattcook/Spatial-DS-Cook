@@ -24,11 +24,19 @@ def mercY(lat):
     return int(a * c)
 
 def x_to_lon(x,width):
-    pass
+    #http://board.flashkit.com/board/showthread.php?666832-Turn-latitude-longitude-into-X-Y-coordinates
+    '''DEGREES_PER_RADIAN = 57.2958
+    RADIANS_PER_DEGREE = 0.0174533
+    sign = math.sin(x)
+    sin = math.sin(x * RADIANS_PER_DEGREE * sign)
+    #return (sign * (math.log((1.0 + sin) / (1.0 - sin)) / 2.0)) *180
+    return (math.atan(math.sinh(float(x))) * DEGREES_PER_RADIAN);'''
+    return ((float(x)/(width/360.0))-180.0)
 
 
 def y_to_lat(y,height):
-    pass
+    #https://stackoverflow.com/questions/1166059/how-can-i-get-latitude-longitude-from-x-y-on-a-mercator-map-jpeg
+    return ((((height/2.0)-y)/(height/2.0))*90)
 
 def adjust_location_coords(extremes,points,width,height):
     """
