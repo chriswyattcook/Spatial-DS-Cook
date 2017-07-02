@@ -97,8 +97,12 @@ while running:
     if x_y_coords != None and converted_to_lat_lon == False:
         #Dont have a way to convert this yet
         #lat,lon = print("gon' convert this bitch", x_y_coords)
-        lat, lon = (event.pos[0],event.pos[1])
-        print(x_to_lon(lon,width))
+        
+        lon,lat = (event.pos[0],event.pos[1])
+        '''print(lat,lon)
+        lat = y_to_lat(lat,height)
+        lon = x_to_lon(lon,width)
+        print(lat,lon)'''
         converted_to_lat_lon = True
 
 

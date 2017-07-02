@@ -24,19 +24,11 @@ def mercY(lat):
     return int(a * c)
 
 def x_to_lon(x,width):
-    #x = (longitude+180)*(mapWidth/360)
     pass
-    #return ()
 
-def y_to_lat(y,heigth):
-    '''    // convert from degrees to radians
-    latRad = latitude*PI/180;
 
-    // get y value
-    mercN = log(tan((PI/4)+(latRad/2)));
-    y     = (mapHeight/2)-(mapWidth*mercN/(2*PI))'''
+def y_to_lat(y,height):
     pass
-    #return ()
 
 def adjust_location_coords(extremes,points,width,height):
     """
@@ -84,8 +76,7 @@ def find_extremes(result_list,width,height):
         allx.append(x)
         ally.append(y)
         points.append((x,y))
-        
-    '''
+    '''   
     extremes['max_x'] = max(allx)
     extremes['min_x'] = min(allx)
     extremes['max_y'] = max(ally)
@@ -96,6 +87,7 @@ def find_extremes(result_list,width,height):
     extremes['min_x'] = 0
     extremes['max_y'] = height
     extremes['min_y'] = 0
+    
     
     return extremes,points
 

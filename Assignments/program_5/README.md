@@ -8,6 +8,7 @@
   - `[lon,lat]` not required! If left blank, the user can click on the map to selct a point. If filled in, the program will ignore all map clicking.
   - `python query2.py earthquakes mag 6 min 6 500 [46.20,-121.937]`
   - `python query2.py earthquakes mag 6 min 6 500 [26.382028,117.070313]`
+  - `python query2.py volcanos Altitude 2500 min 6 500 [46.20,-121.937]`
 ###### `python query2.py [radius]`
   - Allows the users to click on the map to select a point.
   - `radius` is in miles.
