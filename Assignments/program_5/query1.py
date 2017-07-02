@@ -45,6 +45,8 @@ extremes['min_x'] = 0
 extremes['max_y'] = height
 extremes['min_y'] = 0
 
+mh = mongoHelper()
+
 #checks if argv will be used
 if(len(sys.argv) > 1):    
     start_pt = sys.argv[1]
@@ -54,15 +56,12 @@ if(len(sys.argv) > 1):
     picked_pt2 = True
 
     #get coords of start,end
-    start =  mh.get_doc_by_keyword('airports','ap_iata',start_pt)
-    start_coords = mh.get_coordinates(start[0])
+    start =  mh.get_doc_by_keyword('airports','properties.ap_iata',start_pt)
+    start_coords = (start[0]['geometry']['coordinates'][1],start[0]['geometry']['coordinates'][0])
+    pt_list.append(start_coords)
 
-    end =  mh.get_doc_by_keyword('airports','ap_iata',end_pt)
-    end_coords = mh.get_coordinates(end[1]) 
-
-
-
-mh = mongoHelper()
+    end =  mh.get_doc_by_keyword('airports','properties.ap_iata',end_pt)
+    end_coords = (end[0]['geometry']['coordinates'][1],end[0]['geometry']['coordinates'][0])
 
 screen.blit(bg, (0, 0))
 pygame.display.flip()
@@ -95,15 +94,16 @@ while running:
             pt_list.append(closest)
             start_coords = closest
             if(mh._haversine(start_coords[1],start_coords[0],end_coords[1],end_coords[0])<radius):
-                pt_list.append(end_coords)
                 done = True
 
 
     if converted_to_x_y == False and done == True:
+        pt_list.append(end_coords)
+        print(pt_list)
         for pt in pt_list:
             adj = {'volcanos':None,'earthquakes':None,'meteorites':None}
             for f in feature_list:
-                result_list = mh.get_features_near_me(f,(lon,lat),radius)
+                result_list = mh.get_features_near_me(f,(pt[1],pt[0]),radius)
                 
                 extremes,points = find_extremes(result_list, width, height)
 
