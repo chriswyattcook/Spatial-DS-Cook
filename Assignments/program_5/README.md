@@ -3,7 +3,7 @@
   - `[start]` is a 3 character airport code ('DFW'). This is the starting point.
   - `[end]` is a 3 character airport code. This is the endpoint.
   - `[radius]` is in miles.
-  - `python query1.py DFW MNL 500`
+  - `python query1.py DFW MNL 1000`
   - `python query1.py DFW ORD 300`
 ###### `python query1.py`
   - Allows the users to click on the map to select starting and ending points.

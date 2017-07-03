@@ -1,3 +1,15 @@
+"""
+Program:
+--------
+    Program 5 - query2 : Nearest Neighbor
+
+Description:
+------------
+    See README
+    
+Name: Chris W Cook
+Date: 05 July 2017
+"""
 from mongo_features_helper import *
 from mapping_helper import *
 import pprint as pp
@@ -13,10 +25,7 @@ black = (0,0,0)
 (width, height) = (1024, 512)
 color_list = {'volcanos':(255,0,0),'earthquakes':(70,173,212),'meteorites':(76,187,23)}
 
-#run db query for next airport within the r
-#find all vol as red, eq as blue, meteor as green
-#repeat steps until at end_pt
-
+#pygame stuff
 pygame.init()
 bg = pygame.image.load(DIRPATH+'/world_map.png')
 screen = pygame.display.set_mode((width, height))
@@ -55,8 +64,6 @@ elif(len(sys.argv)>3):
     if(len(sys.argv) > 7):
         lat,lon = eval(sys.argv[7])
 
-mh = mongoHelper()
-
 #variables used in the game loop
 x_y_coords = None
 result_list = []
@@ -78,13 +85,15 @@ converted_to_lat_lon = False
 find_feature = True
 drawn = False
 
+#displays the pygame window with the background
 screen.blit(bg, (0, 0))
 pygame.display.flip()
 
+#this is used to access the mongo db
+mh = mongoHelper()
+
 running = True
 while running:
-    
-    #pygame.image.save(screen, DIRPATH+'/query1.png')
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -102,9 +111,9 @@ while running:
         lon = x_to_lon(lon,width)
         converted_to_lat_lon = True
 
-
-
+    #finds all the features
     if picked_pt == True and find_feature == True:
+        #if no feature was chosen
         if feature == None:
             adj = {'volcanos':None,'earthquakes':None,'meteorites':None}
             for f in feature_list:
@@ -116,7 +125,7 @@ while running:
                 
                 
         else:
-            #print(lon,lat)
+            #if a particular feature was chosen
             result_list = mh.get_features_near_me(feature,(lon,lat),radius)
             adj = {feature: None}
             for r in result_list:
@@ -127,8 +136,8 @@ while running:
                     if r['properties.'+field] < field_value:
                         res.append(r)
             result_list = []
-            #print("res")
             
+            #narrrows results down
             for f in range(max_results):
                 result_list.append(res[f])
                 #print(res[f])
@@ -141,12 +150,14 @@ while running:
         find_feature = False
         #pp.pprint(adj)
 
+    #prints all pts
     if picked_pt == True and drawn == False:
         for f in adj.keys():
             for pt in adj[f]:
                 #print(color_list[f],pt)
                 pygame.draw.circle(screen, color_list[f], pt, 2,1)
                 pygame.display.flip()
+                #saves the image
         pygame.image.save(screen, DIRPATH+'/query2.png')
          
         
