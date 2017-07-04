@@ -48,4 +48,4 @@
   - `python query3.py meteorites 3 5`
 ##### Other:
 - query3.png is a picture of the map after all points have been plotted. It is overwritten each time this is run. 
-- May produce more than 5 clusters.
+- Only produces 5 clusters.

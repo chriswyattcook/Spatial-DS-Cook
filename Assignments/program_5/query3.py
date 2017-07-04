@@ -39,10 +39,18 @@ feature = sys.argv[1]
 min_pts = float(sys.argv[2])
 eps = float(sys.argv[3])
 
+drawn = False
 
 res = []
 points = []
 extremes = {}
+
+#displays the pygame window with the background
+screen.blit(bg, (0, 0))
+pygame.display.flip()
+
+#this is used to access the mongo db
+mh = mongoHelper()
 
 #finds all features in world_data
 result_list = mh.client['world_data'][feature].find()
@@ -53,13 +61,6 @@ points = adjust_location_coords(extremes,points,width,height)
 
 mbrs = calculate_mbrs(points, eps, min_pts)
 
-#displays the pygame window with the background
-screen.blit(bg, (0, 0))
-pygame.display.flip()
-
-#this is used to access the mongo db
-mh = mongoHelper()
-
 running = True
 while running:
     for event in pygame.event.get():
@@ -67,13 +68,15 @@ while running:
             running = False
     
     #draws all pts
-    for mbr in mbrs:
-         pygame.draw.polygon(screen, box_color, mbr, 2)
-         pygame.display.flip()
-    for pt in points:
-        pygame.draw.circle(screen, color_list[feature], pt, 2,1)
-        pygame.display.flip()
+    while drawn ==  False:
+        for pt in points:
+            pygame.draw.circle(screen, color_list[feature], pt, 2,1)
+            pygame.display.flip()
+        for i in range(5):
+            pygame.draw.polygon(screen, box_color, mbrs[i], 2)
+            pygame.display.flip()
         #saves the image
-    pygame.image.save(screen, DIRPATH+'/query3.png')
+        pygame.image.save(screen, DIRPATH+'/query3.png')
+        drawn = True
 
     
