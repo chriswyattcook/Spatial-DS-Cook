@@ -1,0 +1,1 @@
+# Must unzip globalterrrorism.geajson.zip before use!
